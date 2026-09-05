@@ -176,25 +176,22 @@ img { max-width: 100%; display: block; }
 .hero-tint {
   position: absolute; inset: 0; z-index: 2;
   background: #E3CB93;
-  opacity: 0.6;
+  opacity: 0.26;
 }
+/* Darkens from the lower left so the headline stays legible over moving footage */
 .hero-scrim {
   position: absolute; inset: 0; z-index: 3;
-  background: linear-gradient(180deg, rgba(60,50,20,0.03) 0%, rgba(60,50,20,0.12) 65%, rgba(60,50,20,0.28) 100%);
+  background: linear-gradient(100deg, rgba(18,16,10,0.80) 0%, rgba(18,16,10,0.56) 40%, rgba(18,16,10,0.18) 74%, rgba(18,16,10,0.34) 100%);
 }
 .hero-content { position: relative; z-index: 4; padding-bottom: 100px; padding-top: 120px; }
+/* Text sits directly on the video; the gold rule is the only framing */
 .hero-panel {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(4px);
-  border-left: 5px solid var(--gold-dark);
-  padding: 56px 60px;
+  border-left: 4px solid var(--gold);
+  padding: 8px 0 8px 30px;
   max-width: 660px;
 }
-.hero-panel h1 { color: var(--charcoal); text-shadow: none; }
-.hero-panel .hero-copy { color: var(--muted); }
-.hero-panel .btn-ghost { color: var(--charcoal); border-color: var(--charcoal); }
-.hero-panel .btn-ghost:hover { background: rgba(0,0,0,0.06); }
-.hero-copy { color: rgba(255,255,255,0.88); font-size: 18px; max-width: 520px; margin-bottom: 32px; }
+.hero-panel h1 { text-shadow: 0 2px 30px rgba(0,0,0,0.45); }
+.hero-copy { color: rgba(255,255,255,0.90); font-size: 18px; max-width: 520px; margin-bottom: 32px; }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
 /* ==========================================================================
