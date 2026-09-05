@@ -339,7 +339,6 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 860px) {
-  .hero-video { display: none; }
   .main-nav, .header-phone { display: none; }
   .nav-toggle { display: flex; }
   .site-header.nav-open .main-nav {
