@@ -139,16 +139,32 @@ img { max-width: 100%; display: block; }
   padding-top: 12px;
   padding-bottom: 12px;
 }
-.logo { margin-right: auto; }
+.logo { margin-right: auto; flex-shrink: 0; }
 .logo img { height: 58px; width: auto; }
 
 .main-nav ul { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
 .main-nav a { font-size: 15px; color: var(--charcoal); font-weight: 500; }
 .main-nav a:hover { color: var(--gold-dark); }
 
-.header-actions { display: flex; align-items: center; gap: 22px; flex-shrink: 0; }
-.header-phone { font-weight: 600; font-size: 15px; color: var(--charcoal); }
-.header-phone:hover { color: var(--gold-dark); }
+.header-actions { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
+
+/* Language switch — deliberately outlined so it reads as a control, and it is
+   never hidden at any screen size */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--gold);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+  flex-shrink: 0;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.lang-switch:hover { background: rgba(215,168,51,0.14); border-color: var(--gold-dark); }
+.lang-switch svg { flex-shrink: 0; }
 
 .nav-toggle {
   display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px;
@@ -323,6 +339,40 @@ img { max-width: 100%; display: block; }
 }
 
 /* ==========================================================================
+   RTL / ARABIC
+   Applies to ar/index.html, which carries dir="rtl" on <html>.
+   ========================================================================== */
+[dir="rtl"] {
+  --font-display: 'Cairo', serif;
+  --font-body: 'Tajawal', sans-serif;
+}
+
+/* Arabic is a connected script: letter-spacing breaks the joins, and the
+   language has no upper case, so the Latin tracking/uppercase treatments are
+   switched off. Arabic also needs more line height for its ascenders. */
+[dir="rtl"] body { line-height: 1.8; }
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 { letter-spacing: 0; line-height: 1.35; }
+[dir="rtl"] .eyebrow { letter-spacing: 0; text-transform: none; font-size: 13px; }
+[dir="rtl"] .testimonial-quote { font-style: normal; line-height: 1.7; }
+
+/* Mirror the elements that were pinned to a specific side */
+[dir="rtl"] .logo { margin-right: 0; margin-left: auto; }
+[dir="rtl"] .hero-panel {
+  border-left: 0;
+  border-right: 4px solid var(--gold);
+  padding: 8px 30px 8px 0;
+}
+[dir="rtl"] .hero-scrim {
+  background: linear-gradient(260deg, rgba(18,16,10,0.80) 0%, rgba(18,16,10,0.56) 40%, rgba(18,16,10,0.18) 74%, rgba(18,16,10,0.34) 100%);
+}
+[dir="rtl"] .project-caption { left: auto; right: 16px; }
+
+/* The alternating services rows flip via direction, so invert that under RTL
+   to keep the same left/right rhythm as the English page */
+[dir="rtl"] .service-row.reverse { direction: ltr; }
+[dir="rtl"] .service-row.reverse > * { direction: rtl; }
+
+/* ==========================================================================
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 980px) {
@@ -338,9 +388,27 @@ img { max-width: 100%; display: block; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
+/* Small phones: the logo, language switch, quote button and menu toggle stop
+   fitting on one line, so the header uses two rows rather than shrinking them */
+@media (max-width: 380px) {
+  .header-inner { flex-wrap: wrap; row-gap: 10px; }
+  .logo { order: 1; }
+  .nav-toggle { order: 2; }
+  .header-actions { order: 3; width: 100%; }
+  .header-actions .btn { flex: 1; }
+}
+
 @media (max-width: 860px) {
-  .main-nav, .header-phone { display: none; }
+  .main-nav { display: none; }
   .nav-toggle { display: flex; }
+  .logo img { height: 46px; }
+  /* Tighten the header so the language switch still fits beside the logo,
+     the quote button and the menu toggle on a phone */
+  .header-inner { gap: 14px; }
+  .header-actions { gap: 10px; }
+  .header-actions .btn { padding: 11px 15px; font-size: 13px; }
+  .lang-switch { padding: 7px 10px; font-size: 13px; }
+  .lang-switch svg { display: none; }
   .site-header.nav-open .main-nav {
     display: block; position: absolute; top: 100%; left: 0; right: 0;
     background: var(--cream); border-bottom: 1px solid var(--line); padding: 16px 24px;
